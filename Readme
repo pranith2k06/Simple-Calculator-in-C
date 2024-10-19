@@ -1,0 +1,3 @@
+This is a Simple Calculator which was written in C Language using basic commands.
+
+Just Run and give it a Try...
