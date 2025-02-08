@@ -6,226 +6,264 @@ void printSignature() {
     for (int i = 0; signature[i] != '\0'; i++) {
         printf("%c", signature[i]);
         fflush(stdout);
-        usleep(50000);
+        usleep(80000);
     }
     printf("\n");
 }
 
-int main() {
-    int choice, subChoice;
-    float num1, num2;
+void displayMenu() {
+    printf("\n======================================\n");
+    printf("           SIMPLE CALCULATOR \n");
+    printf("======================================\n");
+    printf("1. Addition  \n2. Subtraction  \n3. Multiplication  \n4. Division  \n5. Comparison  \n6. Percentage  \n7. Conversions  \n0. Exit\n");
+    printf("======================================\n");
+}
 
+void displayConversionMenu(const char *title) {
+    printf("\n======================================\n");
+    printf("            %s \n", title);
+    printf("======================================\n");
+}
+
+void performArithmetic(int choice) {
+    float num1, num2, result;
+    
+    printf("Enter First Number: ");
+    scanf("%f", &num1);
+    printf("Enter Second Number: ");
+    scanf("%f", &num2);
+
+    switch (choice) {
+        case 1: result = num1 + num2; printf("Sum: %.2f\n", result); break;
+        case 2: result = num1 - num2; printf("Difference: %.2f\n", result); break;
+        case 3: result = num1 * num2; printf("Product: %.2f\n", result); break;
+        case 4: 
+            if (num2 != 0)
+                printf("Quotient: %.2f\n", num1 / num2);
+            else
+                printf("Error: Division by zero is not allowed.\n");
+            break;
+        case 5: 
+            if (num1 > num2)
+                printf("%.2f is greater than %.2f\n", num1, num2);
+            else if (num1 < num2)
+                printf("%.2f is greater than %.2f\n", num2, num1);
+            else
+                printf("Both numbers are equal.\n");
+            break;
+    }
+}
+
+void percentageCalculation() {
+    float num, percent;
+    
+    printf("Enter the number: ");
+    scanf("%f", &num);
+    printf("Enter the percentage: ");
+    scanf("%f", &percent);
+    
+    printf("%.2f is %.2f%% of %.2f\n", (num * percent / 100), percent, num);
+}
+
+void unitConversions() {
+    int subChoice;
+    
+    displayConversionMenu("UNIT CONVERSIONS");
+    printf("1. Temperature\n2. Length\n3. Time\n4. Mass\n");
+    printf("0. Back to Main Menu\n");
+    printf("======================================\n");
+
+    printf("Enter your choice: ");
+    scanf("%d", &subChoice);
+
+    float value, convertedValue;
+    
+    switch (subChoice) {
+        case 1:
+            displayConversionMenu("TEMPERATURE CONVERSIONS");
+            printf("1. Celsius to Fahrenheit\n2. Celsius to Kelvin\n3. Fahrenheit to Celsius\n4. Kelvin to Celsius\n");
+            printf("Enter your choice: ");
+            scanf("%d", &subChoice);
+
+
+            switch (subChoice) {
+                case 1: 
+                    printf("Enter temperature: ");
+                    scanf("%f", &value);
+                    convertedValue = 1.8 * value + 32; 
+                    printf("%.2f°C = %.2f°F\n", value, convertedValue); 
+                    break;
+                    
+                case 2: 
+                    printf("Enter temperature: ");
+                    scanf("%f", &value);
+                    convertedValue = value + 273.15; 
+                    printf("%.2f°C = %.2fK\n", value, convertedValue); 
+                    break;
+                    
+                case 3: 
+                    printf("Enter temperature: ");
+                    scanf("%f", &value);
+                    convertedValue = (value - 32) * 5 / 9; 
+                    printf("%.2f°F = %.2f°C\n", value, convertedValue);
+                    break;
+                    
+                case 4: 
+                    printf("Enter temperature: ");
+                    scanf("%f", &value);
+                    convertedValue = value - 273.15; 
+                    printf("%.2fK = %.2f°C\n", value, convertedValue); 
+                    break;
+                    
+                default: printf("Invalid choice!\n");
+            }
+            break;
+
+        case 2:
+            displayConversionMenu("LENGTH CONVERSIONS");
+            printf("1. Meters to Centimeters\n2. Centimeters to Millimeters\n3. Millimeters to Centimeters\n4. Centimeters to Meters\n");
+            printf("Enter your choice: ");
+            scanf("%d", &subChoice);
+
+            switch (subChoice) {
+                case 1: 
+                    printf("Enter length: ");
+                    scanf("%f", &value);
+                    convertedValue = value * 100; 
+                    printf("%.2f meters = %.2f centimeters\n", value, convertedValue); 
+                    break;
+                    
+                case 2: 
+                    printf("Enter length: ");
+                    scanf("%f", &value);
+                    convertedValue = value * 10; 
+                    printf("%.2f cm = %.2f mm\n", value, convertedValue); 
+                    break;
+                    
+                case 3: 
+                    printf("Enter length: ");
+                    scanf("%f", &value);
+                    convertedValue = value / 10; 
+                    printf("%.2f mm = %.2f cm\n", value, convertedValue); 
+                    break;
+                    
+                case 4: 
+                    printf("Enter length: ");
+                    scanf("%f", &value);
+                    convertedValue = value / 100; 
+                    printf("%.2f cm = %.2f meters\n", value, convertedValue); 
+                    break;
+                    
+                default: printf("Invalid choice!\n");
+            }
+            break;
+
+        case 3:
+            displayConversionMenu("TIME CONVERSIONS");
+            printf("1. Hours to Minutes\n2. Minutes to Seconds\n3. Seconds to Minutes\n4. Minutes to Hours\n");
+            printf("Enter your choice: ");
+            scanf("%d", &subChoice);
+
+            
+            switch (subChoice) {
+                case 1: 
+                    printf("Enter time: ");
+                    scanf("%f", &value);
+                    convertedValue = value * 60; 
+                    printf("%.2f hours = %.2f minutes\n", value, convertedValue); 
+                    break;
+                    
+                case 2: 
+                    printf("Enter time: ");
+                    scanf("%f", &value);
+                    convertedValue = value * 60; 
+                    printf("%.2f minutes = %.2f seconds\n", value, convertedValue); 
+                    break;
+                    
+                case 3: 
+                    printf("Enter time: ");
+                    scanf("%f", &value);
+                    convertedValue = value / 60; 
+                    printf("%.2f seconds = %.2f minutes\n", value, convertedValue); 
+                    break;
+                    
+                case 4: 
+                    printf("Enter time: ");
+                    scanf("%f", &value);
+                    convertedValue = value / 60; 
+                    printf("%.2f minutes = %.2f hours\n", value, convertedValue); 
+                    break;
+                    
+                default: printf("Invalid choice!\n");
+            }
+            break;
+
+        case 4:
+            displayConversionMenu("MASS CONVERSIONS");
+            printf("1. Kilograms to Grams\n2. Grams to Milligrams\n3. Grams to Kilograms\n4. Milligrams to Grams\n");
+            printf("Enter your choice: ");
+            scanf("%d", &subChoice);
+
+            
+            switch (subChoice) {
+                case 1: 
+                    printf("Enter weight: ");
+                    scanf("%f", &value);
+                    convertedValue = value * 1000; 
+                    printf("%.2f kg = %.2f g\n", value, convertedValue); 
+                    break;
+                    
+                case 2: 
+                    printf("Enter weight: ");
+                    scanf("%f", &value);
+                    convertedValue = value * 1000; 
+                    printf("%.2f g = %.2f mg\n", value, convertedValue); 
+                    break;
+                    
+                case 3: 
+                    printf("Enter weight: ");
+                    scanf("%f", &value);
+                    convertedValue = value / 1000; 
+                    printf("%.2f g = %.2f kg\n", value, convertedValue); 
+                    break;
+                    
+                case 4: 
+                    printf("Enter weight: ");
+                    scanf("%f", &value);
+                    convertedValue = value / 1000; 
+                    printf("%.2f mg = %.2f g\n", value, convertedValue); 
+                    break;
+                    
+                default: printf("Invalid choice!\n");
+            }
+            break;
+
+        default:
+            printf("Returning to main menu...\n");
+    }
+}
+
+int main() {
+    int choice;
+    
     while (1) {
-        printf("\nSimple Calculator\n====================\n");
-        printf("1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n5. Comparison\n6. Percentage Calculation\n7. Unit Conversions\n");
-        printf("====================\nEnter your choice: ");
+        displayMenu();
+        printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        switch (choice) {
-            case 1:
-                printf("Enter First Number: ");
-                scanf("%f", &num1);
-                printf("Enter Second Number: ");
-                scanf("%f", &num2);
-                printf("Sum: %.2f\n", num1 + num2);
-                break;
-
-            case 2:
-                printf("Enter First Number: ");
-                scanf("%f", &num1);
-                printf("Enter Second Number: ");
-                scanf("%f", &num2);
-                printf("Difference: %.2f\n", num1 - num2);
-                break;
-
-            case 3:
-                printf("Enter First Number: ");
-                scanf("%f", &num1);
-                printf("Enter Second Number: ");
-                scanf("%f", &num2);
-                printf("Product: %.2f\n", num1 * num2);
-                break;
-
-            case 4:
-                printf("Enter First Number: ");
-                scanf("%f", &num1);
-                printf("Enter Second Number: ");
-                scanf("%f", &num2);
-                if (num2 != 0)
-                    printf("Quotient: %.2f\n", num1 / num2);
-                else
-                    printf("Error: Division by zero is not allowed.\n");
-                break;
-
-            case 5:
-                printf("Enter First Number: ");
-                scanf("%f", &num1);
-                printf("Enter Second Number: ");
-                scanf("%f", &num2);
-                if (num1 > num2)
-                    printf("%.2f is greater than %.2f\n", num1, num2);
-                else if (num1 < num2)
-                    printf("%.2f is greater than %.2f\n", num2, num1);
-                else
-                    printf("Both numbers are equal.\n");
-                break;
-
-            case 6:
-                printf("Enter the number: ");
-                scanf("%f", &num1);
-                printf("Enter the percentage: ");
-                scanf("%f", &num2);
-                printf("%.2f is %.2f%% of %.2f\n", (num1 * num2 / 100), num2, num1);
-                break;
-
-            case 7:
-                printf("\nUnit Conversions\n====================\n");
-                printf("1. Temperature\n2. Length\n3. Time\n4. Mass\n");
-                printf("====================\nEnter your choice: ");
-                scanf("%d", &subChoice);
-
-                switch (subChoice) {
-                    case 1:
-                        printf("\nTemperature Conversion Options:\n");
-                        printf("1. Celsius to Fahrenheit\n2. Celsius to Kelvin\n3. Fahrenheit to Celsius\n4. Kelvin to Celsius\n");
-                        printf("Enter your choice: ");
-                        scanf("%d", &choice);
-                        switch (choice) {
-                            case 1:
-                                printf("Enter the temperature: ");
-                                scanf("%f", &num1);
-                                printf("%.2f°C is equal to %.2f°F\n", num1, (1.8 * num1 + 32));
-                                break;
-                            case 2:
-                                printf("Enter the temperature: ");
-                                scanf("%f", &num1);
-                                printf("%.2f°C is equal to %.2fK\n", num1, (num1 + 273.15));
-                                break;
-                            case 3:
-                                printf("Enter the temperature: ");
-                                scanf("%f", &num1);
-                                printf("%.2f°F is equal to %.2f°C\n", num1, (0.5555 * (num1 - 32)));
-                                break;
-                            case 4:
-                                printf("Enter the temperature: ");
-                                scanf("%f", &num1);    
-                                printf("%.2fK is equal to %.2f°C\n", num1, (num1 - 273.15));
-                                break;
-                            default:
-                                printf("Invalid choice!\n");
-                        }
-                        break;
-
-                    case 2:
-                        printf("\nLength Conversion Options:\n");
-                        printf("1. Meters to Centimeters\n2. Centimeters to Millimeters\n3. Millimeters to Centimeters\n4. Centimeters to Meters\n");
-                        printf("Enter your choice: ");
-                        scanf("%d", &choice);
-                        switch (choice) {
-                            case 1:
-                                printf("Enter the length: ");
-                                scanf("%f", &num1);
-                                printf("%.2f meters is equal to %.2f centimeters\n", num1, num1 * 100);
-                                break;
-                            case 2:
-                                printf("Enter the length: ");
-                                scanf("%f", &num1);
-                                printf("%.2f centimeters is equal to %.2f millimeters\n", num1, num1 * 10);
-                                break;
-                            case 3:
-                                printf("Enter the length: ");
-                                scanf("%f", &num1);
-                                printf("%.2f millimeters is equal to %.2f centimeters\n", num1, num1 / 10);
-                                break;
-                            case 4:
-                                printf("Enter the length: ");
-                                scanf("%f", &num1);
-                                printf("%.2f centimeters is equal to %.2f meters\n", num1, num1 / 100);
-                                break;
-                            default:
-                                printf("Invalid choice!\n");
-                        }
-                        break;
-
-                    case 3:
-                        printf("\nTime Conversion Options:\n");
-                        printf("1. Hours to Minutes\n2. Minutes to Seconds\n3. Seconds to Minutes\n4. Minutes to Hours\n");
-                        printf("Enter your choice: ");
-                        scanf("%d", &choice);
-                        switch (choice) {
-                            case 1:
-                                printf("Enter the time: ");
-                                scanf("%f", &num1);
-                                printf("%.2f hours is equal to %.2f minutes\n", num1, num1 * 60);
-                                break;
-                            case 2:
-                                printf("Enter the time: ");
-                                scanf("%f", &num1);
-                                printf("%.2f minutes is equal to %.2f seconds\n", num1, num1 * 60);
-                                break;
-                            case 3:
-                                printf("Enter the time: ");
-                                scanf("%f", &num1);
-                                printf("%.2f seconds is equal to %.2f minutes\n", num1, num1 / 60);
-                                break;
-                            case 4:
-                                printf("Enter the time: ");
-                                scanf("%f", &num1);
-                                printf("%.2f minutes is equal to %.2f hours\n", num1, num1 / 60);
-                                break;
-                            default:
-                                printf("Invalid choice!\n");
-                        }
-                        break;
-
-                    case 4:
-                        printf("\nMass Conversion Options:\n");
-                        printf("1. Kilograms to Grams\n2. Grams to Milligrams\n3. Grams to Kilograms\n4. Milligrams to Grams\n");
-                        printf("Enter your choice: ");
-                        scanf("%d", &choice);
-                        switch (choice) {
-                            case 1:
-                                printf("Enter the weight: ");
-                                scanf("%f", &num1);
-                                printf("%.2f kilograms is equal to %.2f grams\n", num1, num1 * 1000);
-                                break;
-                            case 2:
-                                printf("Enter the weight: ");
-                                scanf("%f", &num1);
-                                printf("%.2f grams is equal to %.2f milligrams\n", num1, num1 * 1000);
-                                break;
-                            case 3:
-                                printf("Enter the weight: ");
-                                scanf("%f", &num1);
-                                printf("%.2f grams is equal to %.2f kilograms\n", num1, num1 / 1000);
-                                break;
-                            case 4:         
-                                printf("Enter the weight: ");
-                                scanf("%f", &num1);
-                                printf("%.2f milligrams is equal to %.2f grams\n", num1, num1 / 1000);
-                                break;
-                            default:
-                                printf("Invalid choice!\n");
-                        }
-                        break;
-
-                    default:
-                        printf("Invalid option!\n");
-                }
-                break;
-
-            default:
-                printf("Invalid option!\n");
-                break;
-        }
-
-        printf("\nPress 1 to continue \nAny other key to exit: ");
-        int continueChoice;
-        scanf("%d", &continueChoice);
-        if (continueChoice != 1) {
+        if (choice == 0) {
             printSignature();
             break;
+        } else if (choice >= 1 && choice <= 5) {
+            performArithmetic(choice);
+        } else if (choice == 6) {
+            percentageCalculation();
+        } else if (choice == 7) {
+            unitConversions();
+        } else {
+            printf("Invalid choice! Try again.\n");
         }
     }
+    
     return 0;
 }
